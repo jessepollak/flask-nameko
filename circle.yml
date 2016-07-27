@@ -1,0 +1,36 @@
+machine:
+  environment:
+    PIP_CERT: /home/ubuntu/.pypi.pem
+    PIP_INTERNAL_CERT: |
+      -----BEGIN CERTIFICATE-----
+      MIIDVDCCAjwCCQDgHdRtPoGIUDANBgkqhkiG9w0BAQsFADBsMQswCQYDVQQGEwJV
+      UzETMBEGA1UECBMKQ2FsaWZvcm5pYTENMAsGA1UEChMEQ2xlZjE5MDcGA1UEAxMw
+      Y2xlZi1weXBpLTE3ODA3NjY5MjUudXMtZWFzdC0xLmVsYi5hbWF6b25hd3MuY29t
+      MB4XDTE2MDQwODIzMjkyMVoXDTE3MDQwODIzMjkyMVowbDELMAkGA1UEBhMCVVMx
+      EzARBgNVBAgTCkNhbGlmb3JuaWExDTALBgNVBAoTBENsZWYxOTA3BgNVBAMTMGNs
+      ZWYtcHlwaS0xNzgwNzY2OTI1LnVzLWVhc3QtMS5lbGIuYW1hem9uYXdzLmNvbTCC
+      ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJ3vXy95gtyKgvsLI9G9H69s
+      bFxnhdCbbQWLTFUypLWN92qssP73UZUHQsg7NvGLvUK6r99BtojsomC6KGqrt37S
+      6gLQ0FnGmaMeGZw2f8T4Gdn+txegbZryNttxsEOX4uD7J9V818x/zv/1USheD/qV
+      MrQENRvX0BbveJN7hIbTLN1+IQlSSoxLXSqf/gshUK99jhKSOaqxwSuweEuRInn8
+      2jFh6GwLJL3mfpGYv6PnK+io3hgxljcC329ae4N/iegg3UawzGTJNT5AGpRjBAos
+      vRERpu2wjqZ+y0YsWya1YSYwoleq7UYV9xXRAlavWy0XmSwXNGdHOXkiQjUUvmkC
+      AwEAATANBgkqhkiG9w0BAQsFAAOCAQEAITaAnchir51dItbTAkKoJbNxS3kUmh57
+      Y168Z+MblOoRPxjpeue+QXwErVMAALqAKgC9vOofDThSO0Z8jcKRG5OXXbH0fbIz
+      WqYznjrbycAP3ecrcNtIB3gLPHCYabRHto/j0Zcn+7QwAmAVBNGvtRgldOL9TOm7
+      JHrRDF3/thMtdRQfhbh1S1dBP+uuH+ouGfOJgP0LN5zu35vSKmKpLrSerTvW9yOK
+      q4vttoEKuILwTc2ED94T9aw7Fy8zzh9477lb0fQUbh/aSF5oKX+SYQP0B0rB9qyJ
+      klFCOKVEmTqvPdUG8VfEd+YO9EQI48S4HLJwwgnWIfV5lVjGgwpJ+w==
+      -----END CERTIFICATE-----
+  post:
+    # Set up pip to use our private PyPI server
+    - echo -e "$PIP_INTERNAL_CERT" | cat - `python -m pip._vendor.requests.certs` > $PIP_CERT
+dependencies:
+  cache_directories:
+    - .tox
+  override:
+    - pyenv local 2.6.8 3.3.3 3.4.3 3.5.0
+    - pip install tox && tox --notest
+test:
+  override:
+    - tox
