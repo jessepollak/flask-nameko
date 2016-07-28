@@ -67,7 +67,7 @@ coverage:
 	$(BROWSER) htmlcov/index.html
 
 release: clean dist
-	twine upload -r clefpypi dist/*
+	twine upload dist/*
 
 dist: clean
 	python setup.py sdist
