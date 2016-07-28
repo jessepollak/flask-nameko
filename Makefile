@@ -68,7 +68,7 @@ coverage:
 
 release: clean dist
 	twine upload dist/*
-	git push origin mater && git push --tags
+	git push origin master && git push --tags
 
 dist: clean
 	python setup.py sdist
