@@ -48,7 +48,7 @@ setup(
     license="ISCL",
     zip_safe=False,
     keywords='flask_nameko',
-    classifiers=['Private :: Do Not Upload'],
+    classifiers=[],
     test_suite='tests',
     tests_require=test_requirements,
     setup_requires=['pytest-runner']
