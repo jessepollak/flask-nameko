@@ -45,10 +45,10 @@ clean-test:
 	rm -fr htmlcov/
 
 lint:
-	flake8 flask-nameko tests
+	flake8 flask_nameko tests
 
 develop: clean
-	virtualenv venv
+	virtualenv --python=python2.7 venv
 	. venv/bin/activate && pip install -r requirements_dev.txt
 
 test:
@@ -61,7 +61,7 @@ test-all:
 	tox
 
 coverage:
-	coverage run --source flask-nameko setup.py test
+	coverage run --source flask_nameko setup.py test
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html

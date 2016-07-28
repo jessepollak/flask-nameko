@@ -20,6 +20,8 @@ requirements = [
     # These requirements should be pinned according to SemVer.
     # i.e.
     # "left_pad>=1.0, <2.0"
+    "nameko",
+    "flask"
 ]
 
 test_requirements = [
@@ -29,23 +31,23 @@ test_requirements = [
 ]
 
 setup(
-    name='flask-nameko',
+    name='flask_nameko',
     version='0.1.0',
     description="A wrapper for using nameko services with Flask",
     long_description=readme + '\n\n' + history,
     author="Jesse Pollak",
     author_email='jesse@getclef.com',
-    url='https://github.com/clef/flask-nameko',
+    url='https://github.com/clef/flask_nameko',
     packages=[
-        'flask-nameko',
+        'flask_nameko',
     ],
-    package_dir={'flask-nameko':
-                 'flask-nameko'},
+    package_dir={'flask_nameko':
+                 'flask_nameko'},
     include_package_data=True,
     install_requires=requirements,
     license="ISCL",
     zip_safe=False,
-    keywords='flask-nameko',
+    keywords='flask_nameko',
     classifiers=['Private :: Do Not Upload'],
     test_suite='tests',
     tests_require=test_requirements,
