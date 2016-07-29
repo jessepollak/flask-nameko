@@ -3,7 +3,8 @@ from flask import g
 from nameko.standalone.rpc import ClusterRpcProxy
 from .connection_pool import ConnectionPool
 from .errors import (
-    BadConfigurationError
+    BadConfigurationError,
+    ClusterNotConfiguredError
 )
 
 class PooledClusterRpcProxy(object):

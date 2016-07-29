@@ -4,7 +4,10 @@ import pytest
 from mock import Mock, patch
 from flask import Flask, g
 from flask_nameko import FlaskPooledClusterRpcProxy
-from flask_nameko.errors import ClientUnavailableError
+from flask_nameko.errors import (
+    ClientUnavailableError,
+    ClusterNotConfiguredError
+)
 
 @pytest.fixture
 def some_fixture():
@@ -20,6 +23,12 @@ def test_configuration_pulls_nameko_names(flask_app):
     with patch.object(FlaskPooledClusterRpcProxy, 'configure') as configure:
         rpc = FlaskPooledClusterRpcProxy(flask_app)
         configure.assert_called_once_with(dict(AMQP_URI='test'))
+
+def test_not_configured_raises_exception(flask_app):
+    rpc = FlaskPooledClusterRpcProxy()
+    with flask_app.test_request_context():
+        with pytest.raises(ClusterNotConfiguredError):
+            rpc.not_configured_service.test()
 
 def test_connection_is_reused_in_app_context(flask_app):
     with patch('flask_nameko.proxies.ClusterRpcProxy'):
