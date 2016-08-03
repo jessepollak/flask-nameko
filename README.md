@@ -48,14 +48,17 @@ Then, you can use the `FlaskPooledClusterRpcProxy` singleton just as you would n
 
 `FlaskPooledClusterRpcProxy` accepts all nameko configuration values, prefixed with the `NAMEKO_` prefix. In addition, it exposes additional configuration options:
 
-* `INITIAL_CONNECTIONS (int, default=2)` - the number of initial connections to the Nameko cluster to create
-* `MAX_CONNECTIONS (int, default=8)` - the max number of connections to the Nameko cluster to create before raises an error
+* `NAMEKO_INITIAL_CONNECTIONS (int, default=2)` - the number of initial connections to the Nameko cluster to create
+* `NAMEKO_MAX_CONNECTIONS (int, default=8)` - the max number of connections to the Nameko cluster to create before raises an error
+* `NAMEKO_CONNECT_ON_METHOD_CALL (bool, default=True)` - whether connections to services should be loaded when the service is accessed (False) or when a method is called on a service (True)
 
 ### Proxies
 
-*flask_nameko.**FlaskPooledClusterRpcProxy**(app=None)*
+*flask_nameko.**FlaskPooledClusterRpcProxy**(app=None, connect_on_method_call=True)*
 
-   This class is used to create a pool of connections to a Nameko cluster.
+   This class is used to create a pool of connections to a Nameko cluster. It provides the following options:
+   
+       * `connect_on_method_call` - if this is true, the connection to a service is created when a method is called on a service rather than when the service is accessed
 
    *init_app(app=None)*
 
