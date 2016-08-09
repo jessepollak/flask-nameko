@@ -47,8 +47,8 @@ class LazyServiceProxy(object):
         return getattr(getattr(self.get_connection(), self.service), name)
 
 class FlaskPooledClusterRpcProxy(PooledClusterRpcProxy):
-    def __init__(self, app=None, lazy_load_services=False):
-        self._lazy_load_services = lazy_load_services
+    def __init__(self, app=None, connect_on_method_call=True):
+        self._connect_on_method_call = connect_on_method_call
         if app:
             self.init_app(app)
 
@@ -60,7 +60,7 @@ class FlaskPooledClusterRpcProxy(PooledClusterRpcProxy):
                 config[match.group('name')] = val
         self.configure(config)
 
-        self._lazy_load_services = config.get('NAMEKO_LAZY_LOAD_SERVICES', self._lazy_load_services)
+        self._connect_on_method_call = config.get('NAMEKO_CONNECT_ON_METHOD_CALL', self._connect_on_method_call)
 
         app.teardown_appcontext(self._teardown_nameko_connection)
 
@@ -77,7 +77,7 @@ class FlaskPooledClusterRpcProxy(PooledClusterRpcProxy):
             self.release_connection(connection)
 
     def _get_service(self, service):
-        if self._lazy_load_services:
+        if self._connect_on_method_call:
             return LazyServiceProxy(lambda: self.get_connection(), service)
         else:
             return getattr(self.get_connection(), service)
