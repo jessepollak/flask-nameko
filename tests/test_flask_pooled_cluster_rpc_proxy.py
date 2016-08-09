@@ -4,6 +4,7 @@ import pytest
 from mock import Mock, patch
 from flask import Flask, g
 from flask_nameko import FlaskPooledClusterRpcProxy
+from flask_nameko.proxies import LazyServiceProxy
 from flask_nameko.errors import (
     ClientUnavailableError,
     ClusterNotConfiguredError
@@ -32,7 +33,7 @@ def test_not_configured_raises_exception(flask_app):
 
 def test_connection_is_reused_in_app_context(flask_app):
     with patch('flask_nameko.proxies.ClusterRpcProxy'):
-        rpc = FlaskPooledClusterRpcProxy(flask_app)
+        rpc = FlaskPooledClusterRpcProxy(flask_app, connect_on_method_call=False)
         with flask_app.test_request_context():
             connection = rpc.get_connection()
             connection1 = rpc.get_connection()
@@ -41,7 +42,7 @@ def test_connection_is_reused_in_app_context(flask_app):
 def test_connection_is_returned_and_reused_when_app_context_ends(flask_app):
     flask_app.config.update(dict(NAMEKO_INITIAL_CONNECTIONS=1))
     with patch('flask_nameko.proxies.ClusterRpcProxy'):
-        rpc = FlaskPooledClusterRpcProxy(flask_app)
+        rpc = FlaskPooledClusterRpcProxy(flask_app, connect_on_method_call=False)
         with flask_app.test_request_context():
             connection = rpc.get_connection()
         with flask_app.test_request_context():
@@ -50,7 +51,7 @@ def test_connection_is_returned_and_reused_when_app_context_ends(flask_app):
 
 def test_new_connection_is_used_for_new_app_context(flask_app):
     with patch('flask_nameko.proxies.ClusterRpcProxy', side_effect=lambda x: Mock()):
-        rpc = FlaskPooledClusterRpcProxy(flask_app)
+        rpc = FlaskPooledClusterRpcProxy(flask_app, connect_on_method_call=False)
 
         with flask_app.test_request_context():
             connection = rpc.get_connection()
@@ -60,3 +61,13 @@ def test_new_connection_is_used_for_new_app_context(flask_app):
 
         assert connection1 != connection
 
+def test_connect_on_method_call_false_returns_connection(flask_app):
+    with flask_app.test_request_context():
+        with patch('flask_nameko.proxies.ClusterRpcProxy', side_effect=lambda x: Mock()):
+            rpc = FlaskPooledClusterRpcProxy(flask_app, connect_on_method_call=False)
+            assert isinstance(rpc.service, Mock)
+
+def test_connect_on_method_call_returns_lazy_proxy(flask_app):
+    with patch('flask_nameko.proxies.ClusterRpcProxy', side_effect=lambda x: Mock()):
+        rpc = FlaskPooledClusterRpcProxy(flask_app, connect_on_method_call=True)
+        assert isinstance(rpc.service, LazyServiceProxy)
