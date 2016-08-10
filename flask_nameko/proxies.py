@@ -24,7 +24,7 @@ class PooledClusterRpcProxy(object):
         self._pool = ConnectionPool(
             self._get_nameko_connection,
             initial_connections=config.get('INITIAL_CONNECTIONS', 2),
-            max_connections=config.get('MAX_CONNETIONS', 8)
+            max_connections=config.get('MAX_CONNECTIONS', 8)
         )
 
     def _get_nameko_connection(self):
