@@ -2,6 +2,16 @@
 History
 =======
 
+`1.2.0 <https://github.com/clef/flask-nameko/compare/v1.1.1...v1.2.0>`__ (2016-09-16)
+-------------------------------------------------------------------------------------
+
+Features
+~~~~~~~~
+
+-  **PooledClusterRpcProxy**: add support for NAMEKO\_RPC\_TIMEOUT
+   setting
+   (`d4d6042 <https://github.com/clef/flask-nameko/commit/d4d6042>`__)
+
 `1.1.0 <https://github.com/clef/flask-nameko/compare/v1.0.1...v1.1.0>`__ (2016-08-09)
 -------------------------------------------------------------------------------------
 
