@@ -52,6 +52,7 @@ Then, you can use the `FlaskPooledClusterRpcProxy` singleton just as you would n
 * `NAMEKO_MAX_CONNECTIONS (int, default=8)` - the max number of connections to the Nameko cluster to create before raises an error
 * `NAMEKO_CONNECT_ON_METHOD_CALL (bool, default=True)` - whether connections to services should be loaded when the service is accessed (False) or when a method is called on a service (True)
 * `NAMEKO_RPC_TIMEOUT` (int, default=None) - the default timeout before raising an error when trying to call a service RPC method
+* `NAMEKO_POOL_RECYCLE` (int, default=None) - if specified, connections that are older than this interval, specified in seconds, will be automatically recycled on checkout. This setting is useful for environments where connections are happening through a proxy like HAProxy which automatically closes connections after a specified interval.
 
 ### Proxies
 
