@@ -2,6 +2,22 @@
 History
 =======
 
+`1.3.0 <https://github.com/clef/flask-nameko/compare/v1.2.0...v1.3.0>`__ (2016-09-20)
+-------------------------------------------------------------------------------------
+
+Documentation
+~~~~~~~~~~~~~
+
+-  **README**: adds docs for NAMEKO\_POOL\_RECYCLE
+   (`a27a1be <https://github.com/clef/flask-nameko/commit/a27a1be>`__)
+
+Features
+~~~~~~~~
+
+-  **ConnectionPool**: add pool recycling to eliminate closed connection
+   issue
+   (`4d90f1d <https://github.com/clef/flask-nameko/commit/4d90f1d>`__)
+
 `1.2.0 <https://github.com/clef/flask-nameko/compare/v1.1.1...v1.2.0>`__ (2016-09-16)
 -------------------------------------------------------------------------------------
 
