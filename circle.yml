@@ -6,4 +6,5 @@ dependencies:
     - pip install tox && tox --notest
 test:
   override:
+    - flake8
     - tox

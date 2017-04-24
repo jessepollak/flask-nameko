@@ -1,7 +1,12 @@
+from __future__ import absolute_import, unicode_literals
+
 from datetime import datetime, timedelta
-from Queue import Queue, Empty
 from threading import Lock
+
+from six.moves.queue import Queue, Empty
+
 from .errors import ClientUnavailableError
+
 
 class Connection(object):
     def __init__(self, connection):
@@ -14,13 +19,19 @@ class Connection(object):
     def __getattr__(self, attr):
         return getattr(self.connection, attr)
 
+
 class ConnectionPool(object):
-    def __init__(self, get_connection, initial_connections=2, max_connections=8, recycle=None):
+    def __init__(
+        self, get_connection, initial_connections=2, max_connections=8,
+        recycle=None
+    ):
         """
         Create a new pool
         :param func get_connection: The function that returns a connection
-        :param int initial_connections: The initial number of connection objects to create
-        :param int max_connections: The maximum amount of connections to create. These
+        :param int initial_connections: The initial number of connection
+          objects to create
+        :param int max_connections: The maximum amount of connections
+          to create. These
           connections will only be created on demand and will potentially be
           destroyed once they have been returned via a call to
           :meth:`release_connection`
@@ -77,12 +88,14 @@ class ConnectionPool(object):
         :param float initial_timeout:
           how long to wait initially for an existing connection to complete
         :param float next_timeout:
-          if the pool could not obtain a connection during the initial timeout,
-          and we have allocated the maximum available number of connections, wait
-          this long until we can retrieve another one
+          if the pool could not obtain a connection during the
+          initial timeout, and we have allocated the maximum available
+          number of connections, wait this long until we can retrieve
+          another one
         :return: A connection object
         """
-        connection = self._get_connection_from_queue(initial_timeout, next_timeout)
+        connection = self._get_connection_from_queue(
+            initial_timeout, next_timeout)
 
         if self._recycle and connection.is_stale(self._recycle):
             connection = self._recycle_connection(connection)
