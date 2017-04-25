@@ -2,9 +2,9 @@ dependencies:
   cache_directories:
     - .tox
   override:
-    - pyenv local 2.6.8 3.3.3 3.4.3 3.5.0
-    - pip install tox && tox --notest
+    - pyenv versions
+    - pyenv local 2.7.10 3.3.6 3.4.3 3.5.3 3.6.1
+    - pip install tox tox-pyenv flake8 pep8-naming && tox --notest
 test:
   override:
-    - flake8
     - tox
