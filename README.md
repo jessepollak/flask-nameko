@@ -4,7 +4,7 @@ A wrapper for using nameko services with Flask
 
 ## Installation
 
-Install it via Clef's PyPI:
+Install it via PyPI:
 
     pip install flask_nameko
 
@@ -68,6 +68,6 @@ Then, you can use the `FlaskPooledClusterRpcProxy` singleton just as you would n
 
 ## Development
 
-    $ git clone git@github.com:clef/flask_nameko.git flask_nameko
+    $ git clone git@github.com:jessepollak/flask_nameko.git flask_nameko
     $ cd flask_nameko
     $ make develop
