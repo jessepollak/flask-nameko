@@ -21,7 +21,8 @@ requirements = [
     # i.e.
     # "left_pad>=1.0, <2.0"
     "nameko",
-    "flask"
+    "flask",
+    "six"
 ]
 
 test_requirements = [
