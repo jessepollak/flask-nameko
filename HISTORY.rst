@@ -2,6 +2,15 @@
 History
 =======
 
+`1.4.0 <https://github.com/clef/flask-nameko/compare/v1.3.0...v1.4.0>`__ (2017-09-10)
+-------------------------------------------------------------------------------------
+
+Features
+~~~~~~~~~~~~~
+
+-  **Python**: Python 3 support + fix pep8 voilations
+   (`69d116 <https://github.com/jessepollak/flask-nameko/commit/69d116>`__)
+
 `1.3.0 <https://github.com/clef/flask-nameko/compare/v1.2.0...v1.3.0>`__ (2016-09-20)
 -------------------------------------------------------------------------------------
 

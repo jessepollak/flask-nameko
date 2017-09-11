@@ -2,7 +2,7 @@
 
 __author__ = 'Jesse Pollak'
 __email__ = 'jesse@getclef.com'
-__version__ = '1.3.0'
+__version__ = '1.4.0'
 
 from .errors import *  # noqa
 from .proxies import FlaskPooledClusterRpcProxy  # noqa

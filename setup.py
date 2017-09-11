@@ -33,7 +33,7 @@ test_requirements = [
 
 setup(
     name='flask_nameko',
-    version='1.3.0',
+    version='1.4.0',
     description="A wrapper for using nameko services with Flask",
     long_description=readme + '\n\n' + history,
     author="Jesse Pollak",
